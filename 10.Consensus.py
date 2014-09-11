@@ -1,4 +1,6 @@
 dataset = 'rosalind_cons.txt'
+dataset_sample = '10.Consensus.txt'
+output = 'rosalind_cons_output.txt'
 
 db = {}
 count = 0
@@ -9,7 +11,7 @@ for line in file:
         count += 1
         db[count] = ''
     else:
-        db[count] = line
+        db[count] += line
 file.close()
 
 
@@ -29,17 +31,26 @@ for i in range(len(db[1])):
             T += 1
     temp = [A, C, G, T]
     if max(temp) == A: consensus += 'A'
-    if max(temp) == C: consensus += 'C'
-    if max(temp) == G: consensus += 'G'
-    if max(temp) == T: consensus += 'T'
+    elif max(temp) == C: consensus += 'C'
+    elif max(temp) == G: consensus += 'G'
+    elif max(temp) == T: consensus += 'T'
     db_final['A'] += ' ' + str(A)
     db_final['C'] += ' ' + str(C)
     db_final['G'] += ' ' + str(G)
     db_final['T'] += ' ' + str(T)
 
-
+file = open(output, 'w')
+file.write(consensus + '\n')
+file.write('A:' + db_final['A'] + '\n')
+file.write('C:' + db_final['C'] + '\n')
+file.write('G:' + db_final['G'] + '\n')
+file.write('T:' + db_final['T'])
+file.close()
+'''
+print(len(consensus) == len(db[1]))
 print(consensus)
 print('A:' + db_final['A'])
 print('C:' + db_final['C'])
 print('G:' + db_final['G'])
 print('T:' + db_final['T'])
+'''
